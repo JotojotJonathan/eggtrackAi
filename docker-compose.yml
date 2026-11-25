@@ -1,0 +1,65 @@
+version: "3.8"
+
+networks:
+  eggtrack-net:
+    driver: bridge
+
+volumes:
+  db_data:
+  static_data:
+
+services:
+
+  # Database (MySQL)
+  db:
+    image: mariadb:10.11
+    container_name: eggtrack_db
+    restart: unless-stopped
+    networks:
+      - eggtrack-net
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+
+  # Backend (Django with Gunicorn)
+  backend:
+    build:
+      context: ./eggtrack_backend
+      dockerfile: Dockerfile
+    container_name: eggtrack_backend
+    restart: unless-stopped
+    networks:
+      - eggtrack-net
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    volumes:
+      - static_data:/app/static
+
+  # Frontend (Nginx serving React)
+  frontend:
+    build:
+      context: ./frontend-react
+      dockerfile: Dockerfile
+    container_name: eggtrack_frontend
+    restart: unless-stopped
+    networks:
+      - eggtrack-net
+    ports:
+      - "80:80"
+    depends_on:
+      - backend

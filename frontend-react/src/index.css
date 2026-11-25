@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/* Enable Tailwind dark mode with class strategy */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================
+   DARK MODE STYLES
+   ============================================ */
+
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+/* Backgrounds */
+.dark .bg-white {
+  background-color: #1f2937 !important;
+  color: #f3f4f6;
+}
+
+.dark .bg-gray-50 {
+  background-color: #111827 !important;
+}
+
+.dark .bg-gray-100 {
+  background-color: #111827 !important;
+}
+
+/* Text colors */
+.dark .text-gray-500,
+.dark .text-gray-600,
+.dark .text-gray-700,
+.dark .text-gray-800 {
+  color: #9ca3af !important;
+}
+
+.dark .text-gray-900 {
+  color: #f3f4f6 !important;
+}
+
+.dark .text-black {
+  color: #f3f4f6 !important;
+}
+
+/* Borders */
+.dark .border-gray-200,
+.dark .border-gray-300 {
+  border-color: #374151 !important;
+}
+
+/* Form inputs */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #374151 !important;
+  color: #f3f4f6 !important;
+  border-color: #4b5563 !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+.dark select option {
+  background-color: #374151;
+  color: #f3f4f6;
+}
+
+/* Tables */
+.dark table {
+  color: #f3f4f6;
+}
+
+.dark thead {
+  background-color: #111827 !important;
+}
+
+.dark tbody tr:hover {
+  background-color: #374151 !important;
+}
+
+.dark tr {
+  border-color: #374151 !important;
+}
+
+/* Shadows */
+.dark .shadow,
+.dark .shadow-lg,
+.dark .shadow-xl {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Global smooth transitions */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
